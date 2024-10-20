@@ -1,0 +1,23 @@
+# Ignore YOLO Model
+*.pt 
+*.pth
+
+# Ignore dump files
+*.dump
+*.pgm
+*.ppm
+INDEX.txt
+
+# Ignore Python bytecode
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environment directories
+venv/
+ENV/
+env/
+.venv/
+
+**/build/**
+**/log/**
+**/install/**

@@ -1,0 +1,30 @@
+{
+    "name": "Kinnect Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+    "extensions": [
+        "ms-vscode.cpptools",
+        "ms-python.python",
+        "ms-python.black-formatter",
+        "ms-python.debugpy",
+        "ms-python.vscode-pylance",
+    ],
+    "mounts": [
+        "source=${localWorkspaceFolder}/,target=/workspace,type=bind",
+        "source=${localEnv:HOME}/.bash_history,target=/root/.bash_history,type=bind"
+    ],
+    "postCreateCommand": "",
+    "remoteUser": "root",
+    "runArgs": [
+        "--network=host",
+        "--env=DISPLAY=${env:DISPLAY}",
+        "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+        "--env=QT_X11_NO_MITSHM=1",
+        "--privileged"
+    ],
+    "initializeCommand": "xhost +local:docker"
+}
