@@ -1,7 +1,12 @@
 {
-    "name": "Kinnect Dev Container",
+    "name": "Neno Dev Container",
     "build": {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "Dockerfile",
+        "args": {
+            "REMOTE_USER": "${localEnv:USER}",
+            "REMOTE_UID": "${localEnv:REMOTE_UID:1000}",
+            "REMOTE_GID": "${localEnv:REMOTE_GID:1000}"
+        }
     },
     "settings": {
         "terminal.integrated.shell.linux": "/bin/bash"
@@ -15,16 +20,18 @@
     ],
     "mounts": [
         "source=${localWorkspaceFolder}/,target=/workspace,type=bind",
-        "source=${localEnv:HOME}/.bash_history,target=/root/.bash_history,type=bind"
+        "source=${localEnv:HOME}/.bash_history,target=${localEnv:HOME}/.bash_history,type=bind"
     ],
     "postCreateCommand": "",
-    "remoteUser": "root",
+    "remoteUser": "${localEnv:USER}",
     "runArgs": [
         "--network=host",
         "--env=DISPLAY=${env:DISPLAY}",
         "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
         "--env=QT_X11_NO_MITSHM=1",
-        "--privileged"
+        "--privileged",
+        "--runtime=nvidia",
+        "--gpus=all"
     ],
     "initializeCommand": "xhost +local:docker"
 }

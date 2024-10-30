@@ -1,4 +1,8 @@
 from collections import namedtuple
+from dataclasses import dataclass
+from typing import List
+
+import numpy as np
 
 
 # CircleCoordinatesOnImage Definitions
@@ -41,3 +45,29 @@ def SphericalCoordinatesOnSensorFrameStr(self):
 
 
 SphericalCoordinatesOnSensorFrame.__str__ = SphericalCoordinatesOnSensorFrameStr
+
+
+# BallMeasurement Definitions
+@dataclass
+class BallMeasurement:
+    sensor_id: int
+    timestamp: int
+    position: np.ndarray
+    covariance_matrix: np.ndarray
+
+    def __str__(self):
+        return f"BallMeasurement(sensor_id={self.sensor_id},  timestamp={self.timestamp}), position={self.position}, covariance_matrix={self.covariance_matrix}"
+
+
+# BallStatus Definitions
+@dataclass
+class BallStatus:
+    id: int
+    timestamp: int
+    position: np.ndarray = None
+    coovariance_matrix: np.ndarray = None
+    sensors: List[int] = None
+    probability: float = 0.0
+
+    def __str__(self):
+        return f"BallStatus(id={self.id}, position={self.position}, coovariance_matrix={self.coovariance_matrix}, timestamp={self.timestamp}, sensors={self.sensors}, probability={self.probability})"
